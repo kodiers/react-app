@@ -4,6 +4,7 @@ import Radium from 'radium';
 import './Cockpit.css';
 
 const cockpit = (props) => {
+
   const style = {
     backgroundColor: 'green',
     color: 'white',
@@ -30,7 +31,7 @@ const cockpit = (props) => {
   }
   return (
     <div>
-      <h1>Hi, I'm a React App</h1>
+      <h1>{props.title}</h1>
       <p className={classes.join(' ')}>This is really working.</p>
       <button onClick={() => props.clicked()} style={style}>Toggle persons</button>
     </div>

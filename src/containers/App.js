@@ -6,6 +6,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
+
   state = {
     persons: [
         {name: "Max", age: 28, id: 'sadsad'},
@@ -40,6 +41,15 @@ class App extends Component {
     });
   };
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('app componentDidUpdate');
+  }
+
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    console.log('app shouldComponentUpdate');
+    return true;
+  }
+
   render() {
       let persons = null;
 
@@ -54,7 +64,7 @@ class App extends Component {
       return (
         <StyleRoot>
           <div className="App">
-            <Cockpit persons={this.state.persons} clicked={this.togglePersonsHandler}/>
+            <Cockpit persons={this.state.persons} title={this.props.appTitle} clicked={this.togglePersonsHandler}/>
             {persons}
           </div>
         </StyleRoot>
