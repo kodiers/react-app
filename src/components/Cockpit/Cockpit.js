@@ -23,10 +23,10 @@ const cockpit = (props) => {
     color: 'black'
   };
   const classes = [];
-  if (props.persons.length <= 2) {
+  if (props.personsLength <= 2) {
     classes.push('red');
   }
-  if (props.persons.length <= 1) {
+  if (props.personsLength <= 1) {
     classes.push('bold');
   }
   return (
@@ -38,4 +38,4 @@ const cockpit = (props) => {
   );
 };
 
-export default Radium(cockpit);
+export default React.memo(Radium(cockpit));
