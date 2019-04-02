@@ -4,6 +4,7 @@ import Radium, {StyleRoot} from 'radium';
 
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import WithClass from '../hoc/WithClass';
 
 class App extends Component {
 
@@ -14,7 +15,8 @@ class App extends Component {
         {name: "Stepanie", age: 26, id: 'sadssaad'}
       ],
     otherState: 'some state',
-    showPersons: false
+    showPersons: false,
+    changeCounter: 0
   };
 
   deletePersonHandler = (personIndex) => {
@@ -36,8 +38,11 @@ class App extends Component {
     person.name = event.target.value;
     const persons = [...this.state.persons];
     persons[personIndex] = person;
-    this.setState({
-      persons: persons
+    this.setState((prevState, props) => {
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1
+      }
     });
   };
 
@@ -63,14 +68,14 @@ class App extends Component {
 
       return (
         <StyleRoot>
-          <div className="App">
+          <WithClass classes={"App"}>
             <Cockpit
               persons={this.state.persons}
               title={this.props.appTitle}
               personsLength={this.state.persons.length}
               clicked={this.togglePersonsHandler}/>
             {persons}
-          </div>
+          </WithClass>
         </StyleRoot>
       );
   }

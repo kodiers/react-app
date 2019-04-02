@@ -33,7 +33,9 @@ const cockpit = (props) => {
     <div>
       <h1>{props.title}</h1>
       <p className={classes.join(' ')}>This is really working.</p>
-      <button onClick={() => props.clicked()} style={style}>Toggle persons</button>
+      <button
+        onClick={() => props.clicked()}
+        style={style}>Toggle persons</button>
     </div>
   );
 };
