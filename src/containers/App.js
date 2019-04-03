@@ -5,6 +5,7 @@ import Radium, {StyleRoot} from 'radium';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import WithClass from '../hoc/WithClass';
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
 
@@ -16,7 +17,8 @@ class App extends Component {
       ],
     otherState: 'some state',
     showPersons: false,
-    changeCounter: 0
+    changeCounter: 0,
+    authenticated: false
   };
 
   deletePersonHandler = (personIndex) => {
@@ -55,13 +57,21 @@ class App extends Component {
     return true;
   }
 
+  loginHandler = () => {
+    this.setState({authenticated: true})
+  };
+
   render() {
       let persons = null;
 
       if (this.state.showPersons) {
         persons = (
           <div>
-            <Persons persons={this.state.persons} clicked={this.deletePersonHandler} changed={this.nameChangedHandler}/>
+            <Persons
+              persons={this.state.persons}
+              clicked={this.deletePersonHandler}
+              changed={this.nameChangedHandler}
+              isAuthenticated={this.state.authenticated}/>
           </div>
         );
       }
@@ -69,12 +79,14 @@ class App extends Component {
       return (
         <StyleRoot>
           <WithClass classes={"App"}>
-            <Cockpit
-              persons={this.state.persons}
-              title={this.props.appTitle}
-              personsLength={this.state.persons.length}
-              clicked={this.togglePersonsHandler}/>
-            {persons}
+            <AuthContext.Provider value={{authenticated: this.state.authenticated, login: this.loginHandler}}>
+              <Cockpit
+                persons={this.state.persons}
+                title={this.props.appTitle}
+                personsLength={this.state.persons.length}
+                clicked={this.togglePersonsHandler}/>
+              {persons}
+            </AuthContext.Provider>
           </WithClass>
         </StyleRoot>
       );

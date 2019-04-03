@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Radium from 'radium';
 
 import './Cockpit.css';
 
+import AuthContext from '../../context/auth-context';
+
 const cockpit = (props) => {
+
+  const authContext = useContext(AuthContext);
+
+  console.log(authContext.authenticated);
 
   const style = {
     backgroundColor: 'green',
@@ -36,6 +42,7 @@ const cockpit = (props) => {
       <button
         onClick={() => props.clicked()}
         style={style}>Toggle persons</button>
+        <button onClick={authContext.login}>Log in</button>
     </div>
   );
 };

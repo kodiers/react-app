@@ -4,8 +4,11 @@ import Radium from 'radium';
 
 import './Person.css';
 import withClassSecond from '../../../hoc/withClassSecond';
+import AuthContext from '../../../context/auth-context';
 
 class Person extends Component {
+
+  static contextType = AuthContext;
 
   constructor(props) {
     super(props);
@@ -14,11 +17,13 @@ class Person extends Component {
 
   componentDidMount() {
     this.inputElementRef.current.focus();
+    console.log(this.context.authenticated);
   }
 
   render() {
     return(
       <React.Fragment>
+          {this.context.authenticated ? <p>Authenticated</p> : <p>Please login </p>}
         <p onClick={this.props.click}>I'm a {this.props.name} and I am {this.props.age} years old!</p>
         <p>{this.props.children}</p>
         <input
